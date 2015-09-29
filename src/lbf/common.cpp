@@ -1,5 +1,6 @@
 #include <cmath>
 #include <ctime>
+#include <cstdio>
 #include <cassert>
 #include <cstdarg>
 #include <opencv2/core/core.hpp>

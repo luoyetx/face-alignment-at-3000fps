@@ -1,4 +1,4 @@
-#include <cstdint>
+#include <cstdio>
 #include <cstdlib>
 #include "liblinear/linear.h"
 #include "lbf/lbf.hpp"
@@ -285,10 +285,10 @@ Mat LbfCascador::Predict(Mat &img, BBox &bbox) {
 void LbfCascador::Read(FILE *fd) {
     Config &config = Config::GetInstance();
     // global parameters
-    fread(&config.stages_n, sizeof(int32_t), 1, fd);
-    fread(&config.tree_n, sizeof(int32_t), 1, fd);
-    fread(&config.tree_depth, sizeof(int32_t), 1, fd);
-    fread(&config.landmark_n, sizeof(int32_t), 1, fd);
+    fread(&config.stages_n, sizeof(int), 1, fd);
+    fread(&config.tree_n, sizeof(int), 1, fd);
+    fread(&config.tree_depth, sizeof(int), 1, fd);
+    fread(&config.landmark_n, sizeof(int), 1, fd);
     stages_n = config.stages_n;
     landmark_n = config.landmark_n;
     // initialize
@@ -312,10 +312,10 @@ void LbfCascador::Read(FILE *fd) {
 void LbfCascador::Write(FILE *fd) {
     Config &config = Config::GetInstance();
     // global parameters
-    fwrite(&config.stages_n, sizeof(int32_t), 1, fd);
-    fwrite(&config.tree_n, sizeof(int32_t), 1, fd);
-    fwrite(&config.tree_depth, sizeof(int32_t), 1, fd);
-    fwrite(&config.landmark_n, sizeof(int32_t), 1, fd);
+    fwrite(&config.stages_n, sizeof(int), 1, fd);
+    fwrite(&config.tree_n, sizeof(int), 1, fd);
+    fwrite(&config.tree_depth, sizeof(int), 1, fd);
+    fwrite(&config.landmark_n, sizeof(int), 1, fd);
     // mean_shape
     double *ptr = NULL;
     for (int i = 0; i < mean_shape.rows; i++) {

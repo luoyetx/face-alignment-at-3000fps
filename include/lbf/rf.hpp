@@ -51,7 +51,7 @@ public:
 public:
     int landmark_n;
     int trees_n, tree_depth;
-    std::vector<std::vector<RandomTree>> random_trees;
+    std::vector<std::vector<RandomTree> > random_trees;
 };
 
 } // namespace lbf

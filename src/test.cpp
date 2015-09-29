@@ -1,6 +1,6 @@
 #include "lbf/lbf.hpp"
 
-#include <iostream>
+#include <cstdio>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 

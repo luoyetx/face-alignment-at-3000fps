@@ -1,5 +1,5 @@
 #include <cmath>
-#include <cstdint>
+#include <cstdio>
 #include <cassert>
 #include "lbf/rf.hpp"
 
@@ -157,14 +157,14 @@ void RandomTree::Read(FILE *fd) {
     Init(0, config.tree_depth);
     for (int i = 1; i < nodes_n / 2; i++) {
         fread(feats.ptr<double>(i), sizeof(double), 4, fd);
-        fread(&thresholds[i], sizeof(int32_t), 1, fd);
+        fread(&thresholds[i], sizeof(int), 1, fd);
     }
 }
 
 void RandomTree::Write(FILE *fd) {
     for (int i = 1; i < nodes_n / 2; i++) {
         fwrite(feats.ptr<double>(i), sizeof(double), 4, fd);
-        fwrite(&thresholds[i], sizeof(int32_t), 1, fd);
+        fwrite(&thresholds[i], sizeof(int), 1, fd);
     }
 }
 

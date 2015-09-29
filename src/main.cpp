@@ -1,3 +1,4 @@
+#include <cstdio>
 #include "lbf/common.hpp"
 
 using namespace std;
