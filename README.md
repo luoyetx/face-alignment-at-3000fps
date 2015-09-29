@@ -1,7 +1,7 @@
-face-alignment-in-3000fps
+face-alignment-at-3000fps
 =========================
 
-C++ implmentation of face-alignment-in-3000fps.
+C++ implmentation of Face Alignment at 3000 FPS via Regressing Local Binary Features.
 
 ### Reference
 

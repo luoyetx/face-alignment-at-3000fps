@@ -9,10 +9,10 @@ using namespace std;
 namespace lbf {
 
 #define SIMILARITY_TRANSFORM(x, y, scale, rotate) do {            \
-		double x_tmp = scale * (rotate(0, 0)*x + rotate(0, 1)*y); \
-		double y_tmp = scale * (rotate(1, 0)*x + rotate(1, 1)*y); \
-		x = x_tmp; y = y_tmp;                                     \
-	} while(0)
+        double x_tmp = scale * (rotate(0, 0)*x + rotate(0, 1)*y); \
+        double y_tmp = scale * (rotate(1, 0)*x + rotate(1, 1)*y); \
+        x = x_tmp; y = y_tmp;                                     \
+    } while(0)
 
 RandomTree::RandomTree() {}
 RandomTree::~RandomTree() {}
@@ -200,7 +200,7 @@ void RandomForest::Train(vector<Mat> &imgs, vector<Mat> &gt_shapes, vector<Mat> 
         vector<int> root;
         for (int j = 0; j < trees_n; j++) {
             int start = max(0, int(floor(j*Q - j*Q*overlap_ratio)));
-            int	end = min(int(start + Q + 1), N);
+            int end = min(int(start + Q + 1), N);
             int L = end - start;
             root.resize(L);
             for (int k = 0; k < L; k++) root[k] = start + k;
