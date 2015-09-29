@@ -10,8 +10,8 @@ class LbfCascador {
 public:
     LbfCascador();
     ~LbfCascador();
-    LbfCascador(const LbfCascador &other);
-    LbfCascador &operator=(const LbfCascador &other);
+    //LbfCascador(const LbfCascador &other);
+    //LbfCascador &operator=(const LbfCascador &other);
 
 public:
     void Init(int stages_n);

@@ -10,11 +10,11 @@ namespace lbf {
 
 LbfCascador::LbfCascador() {}
 LbfCascador::~LbfCascador() {}
-LbfCascador::LbfCascador(const LbfCascador &other) {}
-LbfCascador &LbfCascador::operator=(const LbfCascador &other) {
-    if (this == &other) return *this;
-    return *this;
-}
+//LbfCascador::LbfCascador(const LbfCascador &other) {}
+//LbfCascador &LbfCascador::operator=(const LbfCascador &other) {
+//    if (this == &other) return *this;
+//    return *this;
+//}
 
 void LbfCascador::Init(int stages_n) {
     Config &config = Config::GetInstance();
@@ -31,7 +31,7 @@ void LbfCascador::Init(int stages_n) {
 }
 
 void LbfCascador::Train(vector<Mat> &imgs, vector<Mat> &gt_shapes, vector<Mat> &current_shapes, \
-    vector<BBox> &bboxes, Mat &mean_shape_, int start_from) {
+                        vector<BBox> &bboxes, Mat &mean_shape_, int start_from) {
     assert(start_from >= 0 && start_from < stages_n);
     mean_shape = mean_shape_;
     int N = imgs.size();
@@ -67,11 +67,11 @@ void LbfCascador::Train(vector<Mat> &imgs, vector<Mat> &gt_shapes, vector<Mat> &
         LOG("start train random forest of %dth stage", k);
         TIMER_BEGIN
             random_forests[k].Train(imgs, gt_shapes, current_shapes, bboxes, delta_shapes, mean_shape, k);
-        LOG("end of train random forest of %dth stage, costs %.4lf s", k, TIMER_NOW);
+            LOG("end of train random forest of %dth stage, costs %.4lf s", k, TIMER_NOW);
         TIMER_END
 
-            // generate lbf of every train data
-            vector<Mat> lbfs;
+        // generate lbf of every train data
+        vector<Mat> lbfs;
         lbfs.resize(N);
         for (int i = 0; i < N; i++) {
             lbfs[i] = random_forests[k].GenerateLBF(imgs[i], current_shapes[i], bboxes[i], mean_shape);
@@ -80,7 +80,7 @@ void LbfCascador::Train(vector<Mat> &imgs, vector<Mat> &gt_shapes, vector<Mat> &
         LOG("start train global regression of %dth stage", k);
         TIMER_BEGIN
             GlobalRegressionTrain(lbfs, delta_shapes, k);
-        LOG("end of train global regression of %dth stage, costs %.4lf s", k, TIMER_NOW);
+            LOG("end of train global regression of %dth stage, costs %.4lf s", k, TIMER_NOW);
         TIMER_END
             // update current_shapes
             double scale;
@@ -99,12 +99,12 @@ void LbfCascador::Train(vector<Mat> &imgs, vector<Mat> &gt_shapes, vector<Mat> &
     }
 }
 
-// Dump current model, end_to shold lie in [0, stage_n)
+// Dump current model, end_to should lie in [0, stage_n)
 void LbfCascador::DumpTrainModel(int stage) {
     assert(stage >= 0 && stage < stages_n);
     LOG("Dump model of stage %d", stage);
     char buff[50];
-    sprintf(buff, "../models/tmp_stage_%d.model", stage);
+    sprintf(buff, "../model/tmp_stage_%d.model", stage);
 
     FILE *fout = fopen(buff, "wb");
     assert(fout);
@@ -128,7 +128,7 @@ void LbfCascador::ResumeTrainModel(int start_from) {
     FILE *fin;
     double *ptr;
     for (int k = 0; k < start_from; k++) {
-        sprintf(buff, "../models/tmp_stage_%d.model", k);
+        sprintf(buff, "../model/tmp_stage_%d.model", k);
         fin = fopen(buff, "rb");
         assert(fin);
 
@@ -145,27 +145,27 @@ void LbfCascador::Test(vector<Mat> &imgs, vector<Mat> &gt_shapes, vector<BBox> &
     vector<Mat> current_shapes(N);
     TIMER_BEGIN
         for (int i = 0; i < N; i++) {
-        current_shapes[i] = bboxes[i].ReProject(mean_shape);
+            current_shapes[i] = bboxes[i].ReProject(mean_shape);
         }
-    double e = calcMeanError(gt_shapes, current_shapes);
-    LOG("initial error = %.6lf", e);
-    double scale;
-    Mat rotate;
-    for (int k = 0; k < stages_n; k++) {
-        for (int i = 0; i < N; i++) {
-            // generate lbf
-            Mat lbf = random_forests[k].GenerateLBF(imgs[i], current_shapes[i], bboxes[i], mean_shape);
-            // update current_shapes
-            Mat delta_shape = GlobalRegressionPredict(lbf, k);
-            delta_shape = delta_shape.reshape(0, landmark_n);
-            current_shapes[i] = bboxes[i].Project(current_shapes[i]);
-            calcSimilarityTransform(current_shapes[i], mean_shape, scale, rotate);
-            current_shapes[i] = bboxes[i].ReProject(current_shapes[i] + scale * delta_shape * rotate.t());
+        double e = calcMeanError(gt_shapes, current_shapes);
+        LOG("initial error = %.6lf", e);
+        double scale;
+        Mat rotate;
+        for (int k = 0; k < stages_n; k++) {
+            for (int i = 0; i < N; i++) {
+                // generate lbf
+                Mat lbf = random_forests[k].GenerateLBF(imgs[i], current_shapes[i], bboxes[i], mean_shape);
+                // update current_shapes
+                Mat delta_shape = GlobalRegressionPredict(lbf, k);
+                delta_shape = delta_shape.reshape(0, landmark_n);
+                current_shapes[i] = bboxes[i].Project(current_shapes[i]);
+                calcSimilarityTransform(current_shapes[i], mean_shape, scale, rotate);
+                current_shapes[i] = bboxes[i].ReProject(current_shapes[i] + scale * delta_shape * rotate.t());
+            }
+            e = calcMeanError(gt_shapes, current_shapes);
+            LOG("stage %dth error = %.6lf", k, e);
         }
-        e = calcMeanError(gt_shapes, current_shapes);
-        LOG("stage %dth error = %.6lf", k, e);
-    }
-    LOG("Test %d images costs %.4lf s with %.2lf fps", N, TIMER_NOW, N / TIMER_NOW);
+        LOG("Test %d images costs %.4lf s with %.2lf fps", N, TIMER_NOW, N / TIMER_NOW);
     TIMER_END
 }
 
@@ -209,12 +209,12 @@ void LbfCascador::GlobalRegressionTrain(vector<Mat> &lbfs, vector<Mat> &delta_sh
 
     Mat_<double> weight(2 * landmark_n, F);
 
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int i = 0; i < landmark_n; i++) {
 
-#define FREE_MODEL(model)	\
-    free(model->w);			\
-    free(model->label);		\
+#define FREE_MODEL(model)   \
+    free(model->w);         \
+    free(model->label);     \
     free(model)
 
         LOG("train %2dth landmark", i);
@@ -244,7 +244,7 @@ void LbfCascador::GlobalRegressionTrain(vector<Mat> &lbfs, vector<Mat> &delta_sh
     free(Y);
 }
 
-// TODO: speed up
+
 Mat LbfCascador::GlobalRegressionPredict(const Mat &lbf, int stage) {
     const Mat_<double> &weight = (Mat_<double>)gl_regression_weights[stage];
     Mat_<double> delta_shape(weight.rows / 2, 2);

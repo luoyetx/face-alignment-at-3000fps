@@ -16,11 +16,11 @@ namespace lbf {
 
 RandomTree::RandomTree() {}
 RandomTree::~RandomTree() {}
-RandomTree::RandomTree(const RandomTree &other) {}
-RandomTree &RandomTree::operator=(const RandomTree &other) {
-    if (this == &other) return *this;
-    return *this;
-}
+//RandomTree::RandomTree(const RandomTree &other) {}
+//RandomTree &RandomTree::operator=(const RandomTree &other) {
+//    if (this == &other) return *this;
+//    return *this;
+//}
 
 void RandomTree::Init(int landmark_id, int depth) {
     this->landmark_id = landmark_id;
@@ -171,11 +171,11 @@ void RandomTree::Write(FILE *fd) {
 
 RandomForest::RandomForest() {}
 RandomForest::~RandomForest() {}
-RandomForest::RandomForest(const RandomForest &other) {}
-RandomForest &RandomForest::operator=(const RandomForest &other) {
-    if (this == &other) return *this;
-    return *this;
-}
+//RandomForest::RandomForest(const RandomForest &other) {}
+//RandomForest &RandomForest::operator=(const RandomForest &other) {
+//    if (this == &other) return *this;
+//    return *this;
+//}
 
 void RandomForest::Init(int landmark_n, int trees_n, int tree_depth) {
     random_trees.resize(landmark_n);
@@ -194,7 +194,7 @@ void RandomForest::Train(vector<Mat> &imgs, vector<Mat> &gt_shapes, vector<Mat> 
     double overlap_ratio = Config::GetInstance().bagging_overlap;
     int Q = int(N / ((1. - overlap_ratio) * trees_n));
 
-#pragma omp parallel for
+    #pragma omp parallel for
     for (int i = 0; i < landmark_n; i++) {
     TIMER_BEGIN
         vector<int> root;

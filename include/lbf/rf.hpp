@@ -11,8 +11,8 @@ class RandomTree {
 public:
     RandomTree();
     ~RandomTree();
-    RandomTree(const RandomTree &other);
-    RandomTree &operator=(const RandomTree &other);
+    //RandomTree(const RandomTree &other);
+    //RandomTree &operator=(const RandomTree &other);
 
 public:
     void Init(int landmark_id, int depth);
@@ -36,8 +36,8 @@ class RandomForest {
 public:
     RandomForest();
     ~RandomForest();
-    RandomForest(const RandomForest &other);
-    RandomForest &operator=(const RandomForest &other);
+    //RandomForest(const RandomForest &other);
+    //RandomForest &operator=(const RandomForest &other);
 
 public:
     void Init(int landmark_n, int trees_n, int tree_depth);

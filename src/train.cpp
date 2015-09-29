@@ -33,7 +33,6 @@ void parseTxt(string &txt, vector<Mat> &imgs, vector<Mat> &gt_shapes, vector<BBo
             fscanf(fd, "%lf%lf", &x[j], &y[j]);
         }
         Mat img = imread(img_path, CV_LOAD_IMAGE_GRAYSCALE);
-        imgs[i] = img;
         // crop img
         double x_min, y_min, x_max, y_max;
         x_min = *min_element(x.begin(), x.end());

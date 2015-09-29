@@ -7,7 +7,7 @@ using namespace cv;
 using namespace std;
 using namespace lbf;
 
-CascadeClassifier cc("../models/haarcascade_frontalface_alt.xml");
+CascadeClassifier cc("../model/haarcascade_frontalface_alt.xml");
 
 Rect getBBox(Mat &img, Mat_<double> &shape) {
     vector<Rect> rects;

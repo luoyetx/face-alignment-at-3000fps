@@ -43,8 +43,8 @@ class BBox {
 public:
     BBox();
     ~BBox();
-    BBox(const BBox &other);
-    BBox &operator=(const BBox &other);
+    //BBox(const BBox &other);
+    //BBox &operator=(const BBox &other);
     BBox(double x, double y, double w, double h);
 
 public:

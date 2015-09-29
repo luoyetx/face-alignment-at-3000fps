@@ -14,11 +14,14 @@ namespace lbf {
 
 BBox::BBox() {}
 BBox::~BBox() {}
-BBox::BBox(const BBox &other) {}
-BBox &BBox::operator=(const BBox &other) {
-    if (this == &other) return *this;
-    return *this;
-}
+//BBox::BBox(const BBox &other) {
+//    BBox(other.x, other.y, other.width, other.height);
+//}
+//BBox &BBox::operator=(const BBox &other) {
+//    if (this == &other) return *this;
+//    BBox(other.x, other.y, other.width, other.height);
+//    return *this;
+//}
 
 BBox::BBox(double x, double y, double w, double h) {
     this->x = x; this->y = y;
@@ -156,7 +159,7 @@ Mat getMeanShape(vector<Mat> &gt_shapes, vector<BBox> &bboxes) {
 
 // Get relative delta_shapes for predicting target
 vector<Mat> getDeltaShapes(vector<Mat> &gt_shapes, vector<Mat> &current_shapes, \
-    vector<BBox> &bboxes, Mat &mean_shape) {
+                           vector<BBox> &bboxes, Mat &mean_shape) {
     vector<Mat> delta_shapes;
     int N = gt_shapes.size();
     delta_shapes.resize(N);
