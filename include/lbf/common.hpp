@@ -66,7 +66,7 @@ double calcMeanError(std::vector<cv::Mat> &gt_shapes, std::vector<cv::Mat> &curr
 
 cv::Mat getMeanShape(std::vector<cv::Mat> &gt_shapes, std::vector<BBox> &bboxes);
 std::vector<cv::Mat> getDeltaShapes(std::vector<cv::Mat> &gt_shapes, std::vector<cv::Mat> &current_shapes, \
-    std::vector<BBox> &bboxes, cv::Mat &mean_shape);
+                                    std::vector<BBox> &bboxes, cv::Mat &mean_shape);
 
 cv::Mat drawShapeInImage(const cv::Mat &img, const cv::Mat &shape, const BBox &bbox);
 

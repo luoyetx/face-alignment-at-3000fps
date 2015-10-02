@@ -17,9 +17,9 @@ public:
 public:
     void Init(int landmark_id, int depth);
     void Train(std::vector<cv::Mat> &imgs, std::vector<cv::Mat> &current_shapes, std::vector<BBox> &bboxes, \
-        std::vector<cv::Mat> &delta_shapes, cv::Mat &mean_shape, std::vector<int> &index, int stage);
+               std::vector<cv::Mat> &delta_shapes, cv::Mat &mean_shape, std::vector<int> &index, int stage);
     void SplitNode(std::vector<cv::Mat> &imgs, std::vector<cv::Mat> &current_shapes, std::vector<BBox> &bboxes, \
-        cv::Mat &delta_shapes, cv::Mat &mean_shape, std::vector<int> &root, int idx, int stage);
+                   cv::Mat &delta_shapes, cv::Mat &mean_shape, std::vector<int> &root, int idx, int stage);
 
     void Read(FILE *fd);
     void Write(FILE *fd);

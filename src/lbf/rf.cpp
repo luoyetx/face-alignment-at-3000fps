@@ -31,7 +31,7 @@ void RandomTree::Init(int landmark_id, int depth) {
 }
 
 void RandomTree::Train(vector<Mat> &imgs, vector<Mat> &current_shapes, vector<BBox> &bboxes, \
-    vector<Mat> &delta_shapes, Mat &mean_shape, vector<int> &index, int stage) {
+                       vector<Mat> &delta_shapes, Mat &mean_shape, vector<int> &index, int stage) {
     Mat_<double> delta_shapes_(delta_shapes.size(), 2);
     for (int i = 0; i < delta_shapes.size(); i++) {
         delta_shapes_(i, 0) = delta_shapes[i].at<double>(landmark_id, 0);
@@ -41,7 +41,7 @@ void RandomTree::Train(vector<Mat> &imgs, vector<Mat> &current_shapes, vector<BB
 }
 
 void RandomTree::SplitNode(vector<Mat> &imgs, vector<Mat> &current_shapes, vector<BBox> &bboxes, \
-    Mat &delta_shapes, Mat &mean_shape, vector<int> &root, int idx, int stage) {
+                           Mat &delta_shapes, Mat &mean_shape, vector<int> &root, int idx, int stage) {
     Config &config = Config::GetInstance();
     int N = root.size();
     if (N == 0) {
@@ -189,7 +189,7 @@ void RandomForest::Init(int landmark_n, int trees_n, int tree_depth) {
 }
 
 void RandomForest::Train(vector<Mat> &imgs, vector<Mat> &gt_shapes, vector<Mat> &current_shapes, \
-    vector<BBox> &bboxes, vector<Mat> &delta_shapes, Mat &mean_shape, int stage) {
+                         vector<BBox> &bboxes, vector<Mat> &delta_shapes, Mat &mean_shape, int stage) {
     int N = imgs.size();
     double overlap_ratio = Config::GetInstance().bagging_overlap;
     int Q = int(N / ((1. - overlap_ratio) * trees_n));
