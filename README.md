@@ -36,6 +36,10 @@ The Configure is under `src/lbf/common.cpp/Config::Config`, modify the config un
 
 The relative path used in source code are all start from `../build`, you may change this under your own condition.
 
+### Pre-trained Model
+
+I have trained a model for 68 facial keypoints, the model can be downloaded from [百度云](http://pan.baidu.com/s/1hqEWqji) or [Google Drive](https://drive.google.com/file/d/0B9QKwhByn6f7UmpYdUtObzdxcDg/view?usp=sharing) or [Dropbox](https://www.dropbox.com/s/cij4fh24frznj3t/68.model?dl=0).
+
 ### Some Test
 
 ![](images/res1.png)
