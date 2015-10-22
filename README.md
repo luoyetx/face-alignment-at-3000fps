@@ -38,7 +38,7 @@ The relative path used in source code are all start from `../build`, you may cha
 
 ### Pre-trained Model
 
-I have trained a model for 68 facial keypoints, the model can be downloaded from [百度云](http://pan.baidu.com/s/1hqEWqji) or [Google Drive](https://drive.google.com/file/d/0B9QKwhByn6f7UmpYdUtObzdxcDg/view?usp=sharing) or [Dropbox](https://www.dropbox.com/s/cij4fh24frznj3t/68.model?dl=0).
+I will not provide a pre-trained model, please train the code on your own data.
 
 ### Some Test
 
@@ -46,6 +46,10 @@ I have trained a model for 68 facial keypoints, the model can be downloaded from
 ![](images/res2.png)
 ![](images/res3.png)
 ![](images/res4.png)
+
+### License
+
+BSD 3-Clause
 
 ### Reference
 
