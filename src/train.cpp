@@ -118,7 +118,7 @@ void data_augmentation(vector<Mat> &imgs, vector<Mat> &gt_shapes, vector<BBox> &
             SWAP(gt_shapes[i], 11, 12);
             SWAP(gt_shapes[i], 17, 18);
             SWAP(gt_shapes[i], 14, 16);
-            SWAP(gt_shapes[i], 18, 20);
+            SWAP(gt_shapes[i], 19, 20);
             SWAP(gt_shapes[i], 23, 24);
         }
     }
