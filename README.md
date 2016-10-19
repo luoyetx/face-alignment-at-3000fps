@@ -5,7 +5,7 @@ C++ implementation of Face Alignment at 3000 FPS via Regressing Local Binary Fea
 
 ### Prepare Data
 
-We can download dataset from [here](dataset). The dataset contains 68 points for every face, however it doesn't provide a bounding box for faces. We need our face detector to generate face bounding box (I think it is resonable because we should ues the same face detector for training and prediction).
+We can download dataset from [here][dataset]. The dataset contains 68 points for every face, however it doesn't provide a bounding box for faces. We need our face detector to generate face bounding box (I think it is resonable because we should ues the same face detector for training and prediction).
 
 Download the dataset and extract the data (xxx.jpg and xxx.pts) to the directory `data`, e.g. `data/68`. We also need two text file `data/68/Path_Images_train.txt` and `data/68/Path_Images_test.txt` to list the images used for train and test. The path can be relative like `../data/68/xxx.jpg` or absolute like `/home/zhangjie/projects/face-alignment-at-3000fps/data/68/xxx.jpg` or `E:/projects/face-alignment-at-3000fps/data/68/xxx.jpg`.
 
